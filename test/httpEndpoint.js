@@ -13,14 +13,13 @@ const expect = chai.expect;
 const should = chai.should();
 
 const kronosStep = require('kronos-step');
-const endpointImpl = kronosStep.endpointImplementation;
 
 const manager = {};
 
 describe('http endpoint', function () {
   const url = "http://localhost:12346/";
 
-  const endpoint = endpointImpl.createEndpoint('e1', {
+  const endpoint = kronosStep.createEndpoint('e1', {
     target: url,
   }, endpointImpl.implementations.http);
 

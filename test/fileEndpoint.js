@@ -15,12 +15,9 @@ const streamEqual = require('stream-equal');
 const tmp = require('tmp');
 
 
-const kronos = require('kronos-service-manager');
+const kronosStep = require('kronos-step');
 
-
-const endpointImpl = kronosStep.endpointImplementation;
-
-const fileImpl = endpointImpl.implementations.file;
+const fileImpl = require('../lib/endpoints/file').implementation;
 const inFileName = path.join(__dirname, 'fixtures', 'file1.txt');
 
 const manager = {
@@ -43,7 +40,7 @@ describe('in file endpoint', function () {
 	uti.initialize();
 
 	describe('active', function () {
-		const endpoint = endpointImpl.createEndpoint('e1', {
+		const endpoint = kronosStep.createEndpoint('e1', {
 			target: "file:" + inFileName,
 			direction: 'in(active)'
 		}, fileImpl);
@@ -70,7 +67,7 @@ describe('in file endpoint', function () {
 	});
 
 	describe('passive', function () {
-		const endpoint = endpointImpl.createEndpoint('e1', {
+		const endpoint = kronosStep.createEndpoint('e1', {
 			target: "file:" + inFileName,
 			direction: 'in(passive)'
 		}, fileImpl);
@@ -88,7 +85,7 @@ describe('in file endpoint', function () {
 describe('out file endpoint', function () {
 	describe('active', function () {
 		tmp.file(function (err, outFileName) {
-			const endpoint = endpointImpl.createEndpoint('e1', {
+			const endpoint = kronosStep.createEndpoint('e1', {
 				target: "file:" + outFileName,
 				direction: 'out(passive)'
 			}, fileImpl);
@@ -113,7 +110,7 @@ describe('out file endpoint', function () {
 		it("should consume a request", function (done) {
 
 			tmp.file(function (err, outFileName) {
-				const endpoint = endpointImpl.createEndpoint('e1', {
+				const endpoint = kronosStep.createEndpoint('e1', {
 					target: "file:" + outFileName,
 					direction: 'out(passive)'
 				}, fileImpl);
