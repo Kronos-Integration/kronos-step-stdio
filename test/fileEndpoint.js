@@ -17,7 +17,7 @@ const tmp = require('tmp');
 
 const kronosStep = require('kronos-step');
 
-const fileImpl = require('../lib/endpoints/file').implementation;
+const fileImpl = require('../lib/endpoints/file');
 const inFileName = path.join(__dirname, 'fixtures', 'file1.txt');
 
 const manager = {

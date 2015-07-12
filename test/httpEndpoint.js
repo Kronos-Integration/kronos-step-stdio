@@ -21,7 +21,7 @@ describe('http endpoint', function () {
 
   const endpoint = kronosStep.createEndpoint('e1', {
     target: url,
-  }, endpointImpl.implementations.http);
+  }, require('../lib/endpoints/http'));
 
   const flowStream = fs.createReadStream(path.join(__dirname, 'fixtures', 'sample.flow'), {
     encoding: 'utf8'
