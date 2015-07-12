@@ -25,11 +25,13 @@
     "tmp": "0.0.26"
   },
   "dependencies": {
-    "kronos-flow": "git+ssh://donkey@mfelten.de/Groups/donkey/git/kronos-service-manager.git",
+    "kronos-service-manager": "git+ssh://donkey@mfelten.de/Groups/donkey/git/kronos-service-manager.git",
+    "kronos-step": "git+ssh://donkey@mfelten.de/Groups/donkey/git/kronos-step.git",
     "lodash": "3.10.0",
     "log4js": "0.6.26",
     "promisify-node": "^0.1.5",
-    "request": "2.58.0"
+    "request": "2.58.0",
+    "uti": "^1.5.0"
   },
   "repository": {
     "type": "git",
