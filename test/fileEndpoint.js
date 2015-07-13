@@ -13,11 +13,8 @@ const expect = chai.expect;
 const should = chai.should();
 const streamEqual = require('stream-equal');
 const tmp = require('tmp');
-
-
 const kronosStep = require('kronos-step');
 
-const fileImpl = require('../lib/endpoints/file');
 const inFileName = path.join(__dirname, 'fixtures', 'file1.txt');
 
 const manager = {
@@ -35,95 +32,70 @@ function makeEqualizer(done) {
 	};
 }
 
-describe('in file endpoint', function () {
-
+describe('file endpoint', function () {
 	uti.initialize();
 
-	describe('active', function () {
-		const endpoint = kronosStep.createEndpoint('e1', {
-			target: "file:" + inFileName,
-			direction: 'in(active)'
-		}, fileImpl);
+	const file = kronosStep.createEndpoint('file', require('../lib/endpoints/file'));
 
-		it("should have an implementation", function () {
-			assert(fileImpl !== undefined);
-			assert(endpoint.implementation === fileImpl.implementation, "file endpoint implementation");
-		});
-
-		it("should have a request", function (done) {
-			let number = 0;
-
-			for (let request of endpoint.initialize(manager)) {
-				number++;
-				assert(request.info.name === inFileName, "file name is " + inFileName);
-
-				//console.log(`*** UTI ${request.info.uti}`);
-				//	assert(request.info.uti.toString() === 'public.plain-text');
-
-				streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
-			}
-			assert(number === 1, "exactly one request");
-		});
-	});
-
-	describe('passive', function () {
-		const endpoint = kronosStep.createEndpoint('e1', {
-			target: "file:" + inFileName,
-			direction: 'in(passive)'
-		}, fileImpl);
-
-		it("should have a request", function (done) {
-			let ep = endpoint.initialize(manager, function* () {
-				const request = yield;
-				assert(request.info.name === inFileName, "file name is " + inFileName);
-				streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
-			});
-		});
-	});
-});
-
-describe('out file endpoint', function () {
-	describe('active', function () {
-		tmp.file(function (err, outFileName) {
+	describe('in', function () {
+		describe('active', function () {
 			const endpoint = kronosStep.createEndpoint('e1', {
-				target: "file:" + outFileName,
-				direction: 'out(passive)'
-			}, fileImpl);
+				target: "file:" + inFileName,
+				direction: 'in(active)'
+			}, file);
 
-			let out = endpoint.initialize(manager);
-
-			const myStream = fs.createReadStream(inFileName);
-			out.next({
-				info: {
-					name: "aName"
-				},
-				stream: myStream
+			it("should have an implementation", function () {
+				assert(endpoint.implementation === file.implementation, "file endpoint implementation");
 			});
 
-			myStream.on('end', function () {
-				streamEqual(fs.createReadStream(outFileName), fs.createReadStream(inFileName), makeEqualizer(done));
+			it("should have a request", function (done) {
+				let number = 0;
+
+				for (let request of endpoint.initialize(manager)) {
+					number++;
+					assert(request.info.name === inFileName, "file name is " + inFileName);
+
+					//console.log(`*** UTI ${request.info.uti}`);
+					//	assert(request.info.uti.toString() === 'public.plain-text');
+
+					streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
+				}
+				assert(number === 1, "exactly one request");
+			});
+		});
+
+		describe('passive', function () {
+			const endpoint = kronosStep.createEndpoint('e1', {
+				target: "file:" + inFileName,
+				direction: 'in(passive)'
+			}, file);
+
+			it("should have a request", function (done) {
+				let ep = endpoint.initialize(manager, function* () {
+					const request = yield;
+					assert(request.info.name === inFileName, "file name is " + inFileName);
+					streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
+				});
 			});
 		});
 	});
 
-	describe('passive', function () {
-		it("should consume a request", function (done) {
-
+	describe('out', function () {
+		describe('active', function () {
 			tmp.file(function (err, outFileName) {
 				const endpoint = kronosStep.createEndpoint('e1', {
 					target: "file:" + outFileName,
 					direction: 'out(passive)'
-				}, fileImpl);
+				}, file);
 
-				let myStream;
-				let out = endpoint.initialize(manager, function* () {
-					myStream = fs.createReadStream(inFileName);
-					yield {
-						info: {
-							name: "aName"
-						},
-						stream: myStream
-					};
+				let out = endpoint.initialize(manager);
+
+				const myStream = fs.createReadStream(inFileName);
+				out.next({
+					info: {
+						name: "aName"
+					},
+					stream: myStream
 				});
 
 				myStream.on('end', function () {
@@ -132,5 +104,31 @@ describe('out file endpoint', function () {
 			});
 		});
 
+		describe('passive', function () {
+			it("should consume a request", function (done) {
+
+				tmp.file(function (err, outFileName) {
+					const endpoint = kronosStep.createEndpoint('e1', {
+						target: "file:" + outFileName,
+						direction: 'out(passive)'
+					}, file);
+
+					let myStream;
+					let out = endpoint.initialize(manager, function* () {
+						myStream = fs.createReadStream(inFileName);
+						yield {
+							info: {
+								name: "aName"
+							},
+							stream: myStream
+						};
+					});
+
+					myStream.on('end', function () {
+						streamEqual(fs.createReadStream(outFileName), fs.createReadStream(inFileName), makeEqualizer(done));
+					});
+				});
+			});
+		});
 	});
 });

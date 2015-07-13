@@ -18,10 +18,13 @@ const manager = {};
 
 describe('http endpoint', function () {
   const url = "http://localhost:12346/";
+  const http = kronosStep.createEndpoint('http',require('../lib/endpoints/http'));
 
   const endpoint = kronosStep.createEndpoint('e1', {
     target: url,
-  }, require('../lib/endpoints/http'));
+  }, http);
+
+  console.log(`http: ${JSON.stringify(endpoint)}`);
 
   const flowStream = fs.createReadStream(path.join(__dirname, 'fixtures', 'sample.flow'), {
     encoding: 'utf8'

@@ -15,10 +15,9 @@ const kronosStep = require('kronos-step');
 const manager = {};
 
 describe('stdin endpoint', function () {
-
   const endpoint = kronosStep.createEndpoint('e1', {
     target: "stdin"
-  }, require('../lib/endpoints/stdio').stdin);
+  }, kronosStep.createEndpoint('stdin',require('../lib/endpoints/stdio').stdin));
 
   let in1 = endpoint.initialize(manager);
 
@@ -33,7 +32,7 @@ describe('stdin endpoint', function () {
 describe('stdout endpoint', function () {
   const endpoint = kronosStep.createEndpoint('e1', {
     target: "stdout"
-  }, require('../lib/endpoints/stdio').stdout);
+  }, kronosStep.createEndpoint('stout',require('../lib/endpoints/stdio').stdout));
 
   describe('with generator arg', function () {
     it("should consume a request", function () {
