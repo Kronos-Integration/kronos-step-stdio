@@ -1,4 +1,4 @@
-/* global describe, it*/
+/* global describe, it */
 /* jslint node: true, esnext: true */
 
 "use strict";
@@ -18,13 +18,11 @@ const manager = {};
 
 describe('http endpoint', function () {
   const url = "http://localhost:12346/";
-  const http = kronosStep.createEndpoint('http',require('../lib/endpoints/http'));
+  const http = kronosStep.createEndpoint('http', require('../lib/endpoints/http'));
 
   const endpoint = kronosStep.createEndpoint('e1', {
     target: url,
   }, http);
-
-  console.log(`http: ${JSON.stringify(endpoint)}`);
 
   const flowStream = fs.createReadStream(path.join(__dirname, 'fixtures', 'sample.flow'), {
     encoding: 'utf8'
