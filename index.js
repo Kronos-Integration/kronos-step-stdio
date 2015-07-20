@@ -12,6 +12,4 @@ exports.registerWithManager = function (manager) {
   manager.registerEndpointScheme("stderr", stdio.stderr);
 
   manager.registerStepImplementation('kronos-copy', require('./lib/steps/copy'));
-  manager.registerStepImplementation('kronos-flow-control', require('./lib/steps/flow_control'));
-  manager.registerStepImplementation('kronos-group', require('./lib/steps/group'));
 };
