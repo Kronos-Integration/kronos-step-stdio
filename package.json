@@ -15,12 +15,12 @@
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "jsdoc": "^3.3.2",
-    "chai": "3.0.0",
+    "chai": "3.2.0",
     "chai-as-promised": "5.1.0",
     "conventional-changelog-generator": "0.0.3",
-    "kronos-service-manager": "git+ssh://donkey@mfelten.de/Groups/donkey/git/kronos-service-manager.git",
     "istanbul-harmony": "0.3.16",
+    "jsdoc": "^3.3.2",
+    "kronos-service-manager": "git+ssh://donkey@mfelten.de/Groups/donkey/git/kronos-service-manager.git",
     "mocha": "2.2.5",
     "stream-equal": "^0.1.5",
     "tmp": "0.0.26"
