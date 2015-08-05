@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "kronos-step": "git+ssh://donkey@mfelten.de/Groups/donkey/git/kronos-step.git",
-    "lodash": "3.10.0",
     "log4js": "0.6.26",
     "request": "2.60.0",
     "uti": "^1.8.1"
