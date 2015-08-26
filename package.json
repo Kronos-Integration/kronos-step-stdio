@@ -10,7 +10,7 @@
     "test": "mocha --harmony_shipping test/*.js"
   },
   "engines": {
-    "iojs": "2.0.0"
+    "iojs": ">=2.5.0"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
