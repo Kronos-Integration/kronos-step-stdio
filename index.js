@@ -1,17 +1,12 @@
 /* jslint node: true, esnext: true */
 
+
 "use strict";
 
 exports.registerWithManager = function (manager) {
-  manager.registerEndpointScheme("file", require('./lib/endpoints/file'));
-  manager.registerEndpointScheme("http", require('./lib/endpoints/http'));
-
-  const stdio = require('./lib/endpoints/stdio');
-  manager.registerEndpointScheme("stdin", stdio.stdin);
-  manager.registerEndpointScheme("stdout", stdio.stdout);
-  manager.registerEndpointScheme("stderr", stdio.stderr);
-
-  manager.registerStepImplementation(require('./lib/steps/stdout'));
-  manager.registerStepImplementation(require('./lib/steps/copy'));
   manager.registerStepImplementation(require('./lib/steps/system'));
+  manager.registerStepImplementation(require('./lib/steps/file'));
+  manager.registerStepImplementation(require('./lib/steps/copy'));
+  manager.registerStepImplementation(require('./lib/steps/stdin'));
+  manager.registerStepImplementation(require('./lib/steps/stdout'));
 };
