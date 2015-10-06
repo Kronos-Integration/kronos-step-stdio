@@ -9,4 +9,5 @@ exports.registerWithManager = function (manager) {
   manager.registerStepImplementation(require('./lib/steps/copy'));
   manager.registerStepImplementation(require('./lib/steps/stdin'));
   manager.registerStepImplementation(require('./lib/steps/stdout'));
+  manager.registerStepImplementation(require('./lib/steps/stderr'));
 };
