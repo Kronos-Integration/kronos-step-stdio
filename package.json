@@ -1,6 +1,6 @@
 {
   "name": "kronos-service-manager-addon",
-  "version": "v0.0.1",
+  "version": "0.0.0",
   "description": "Service Container abstraction",
   "main": "lib/manager.js",
   "homepage": "http://kronos.io/",
@@ -10,7 +10,7 @@
     "test": "mocha --harmony_shipping test/*.js"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=4.1.2"
   },
   "author": "Markus Felten <markus.felten@gmx.de>",
   "license": "BSD-2-Clause",
