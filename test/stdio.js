@@ -35,7 +35,6 @@ describe('stdin', function () {
 
   describe('start', function (done) {
     it("should produce a request", function () {
-
       stdin.start().then(function () {
         done();
       });
