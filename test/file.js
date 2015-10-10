@@ -23,7 +23,7 @@ const sr = scopeReporter.createReporter(kronosStep.ScopeDefinitions);
 const manager = Object.create(new events.EventEmitter(), {
 	stepImplementations: {
 		value: {
-			"kronos-file": require('../lib/steps/file')
+			"kronos-file": kronosStep.prepareStepForRegistration(require('../lib/steps/file'))
 		}
 	},
 	uti: {
@@ -57,24 +57,38 @@ describe('file', function () {
 	fileStep.endpoints.out.setTarget(testEndpoint);
 
 	fileStep.endpoints.out.receive(function* () {
+		console.log(`receive...`);
 		while (true) {
 			const request = yield;
 			console.log(`got request`);
 		};
 	});
 
-	describe('start', function (done) {
-		it("should produce a request", function () {
-			fileStep.start().then(function () {
-				console.log(`start done`);
-
-				setTimeout(function () {
-					//done();
-				}, 500);
-			});
+	describe('start', function () {
+		it("should produce a request", function (done) {
+			fileStep.start().then(function (step) {
+				try {
+					console.log(`STEP ${JSON.stringify(step)}`);
+					assert.equal(step.state, 'running');
+					done();
+				} catch (e) {
+					done(e);
+				}
+			}, done);
 		});
+
 	});
 
+	/*
+				fileStep.start().then(function (step) {
+					console.log(`start done`);
+
+					assert.equal(step.state, 'runningx');
+					setTimeout(function () {
+						//done();
+					}, 500);
+				});
+	*/
 
 	/*
 		describe('in', function () {
