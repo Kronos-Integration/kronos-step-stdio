@@ -33,13 +33,19 @@ describe('stdin', function () {
     }
   });
 
-  stdin.endpoints.out.receive(function* () {
+  const testEndpoint = kronosStep.createEndpoint('test', {
+    direction: "in"
+  });
+
+  testEndpoint.receive(function* () {
     console.log(`receive...`);
     while (true) {
       const request = yield;
       console.log(`got request`);
     };
   });
+
+  stdin.endpoints.out.setTarget(testEndpoint);
 
   describe('start', function () {
     it("should produce a request", function (done) {
@@ -48,7 +54,7 @@ describe('stdin', function () {
           //console.log(`STEP ${JSON.stringify(step)}`);
           assert.equal(step.state, 'running');
 
-          setTimeout(() => done(), 10);
+          setTimeout(() => done(), 50);
         } catch (e) {
           done(e);
         }
