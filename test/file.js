@@ -43,95 +43,93 @@ function makeEqualizer(done) {
 describe('file', function () {
 	uti.initialize();
 
-	const fileStep = kronosStep.createStep(manager, sr, {
-		name: "myStep",
-		type: "kronos-file",
-		fileName: inFileName,
-		endpoints: {
-			"inout": kronosStep.createEndpoint('test', {
-				direction: "out"
-			})
-		}
-	});
+	describe('in', function () {
+		describe('single file', function () {
 
-	const testEndpoint = kronosStep.createEndpoint('test', {
-		direction: "in"
-	});
-
-	describe('start', function () {
-		it("should produce a request", function (done) {
-
-			let request;
-			testEndpoint.receive(function* () {
-				while (true) {
-					request = yield;
-				};
-			});
-			fileStep.endpoints.inout.setTarget(testEndpoint);
-
-			fileStep.start().then(function (step) {
-				try {
-					assert.equal(fileStep.state, 'running');
-					assert.equal(request.info.name, inFileName);
-					streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
-				} catch (e) {
-					done(e);
+			const fileStep = kronosStep.createStep(manager, sr, {
+				name: "myStep",
+				type: "kronos-file",
+				fileName: inFileName,
+				endpoints: {
+					"inout": kronosStep.createEndpoint('test', {
+						direction: "out"
+					})
 				}
-			}, done);
+			});
+
+			const testEndpoint = kronosStep.createEndpoint('test', {
+				direction: "in"
+			});
+
+			describe('start', function () {
+				it("should produce a request", function (done) {
+
+					let request;
+					testEndpoint.receive(function* () {
+						while (true) {
+							request = yield;
+						};
+					});
+					fileStep.endpoints.inout.setTarget(testEndpoint);
+
+					fileStep.start().then(function (step) {
+						try {
+							assert.equal(fileStep.state, 'running');
+							assert.equal(request.info.name, inFileName);
+							streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
+						} catch (e) {
+							done(e);
+						}
+					}, done);
+				});
+			});
+		});
+
+		describe('out', function (done) {
+			tmp.file(function (err, outFileName) {
+				//outFileName = "/tmp/out";
+				const fileStep = kronosStep.createStep(manager, sr, {
+					name: "myStep",
+					type: "kronos-file",
+					fileName: outFileName,
+					endpoints: {
+						"inout": kronosStep.createEndpoint('test', {
+							direction: "in"
+						})
+					}
+				});
+				const testEndpoint = kronosStep.createEndpoint('test', {
+					direction: "out"
+				});
+
+				testEndpoint.setTarget(fileStep.endpoints.inout);
+
+				describe('start', function () {
+					it(`should create a file ${outFileName}`, function () {
+						fileStep.start().then(function (step) {
+							try {
+								const myStream = fs.createReadStream(inFileName)
+								testEndpoint.send({
+									info: {
+										name: inFileName
+									},
+									stream: myStream
+								});
+
+								assert.equal(fileStep.state, 'running');
+
+								myStream.on('end', function () {
+									setTimeout(() =>
+										streamEqual(fs.createReadStream(outFileName), fs.createReadStream(inFileName), makeEqualizer(
+											() => { /*done();*/ }), 5000));
+								});
+							} catch (e) {
+								done(e);
+							}
+						}, done);
+					});
+				});
+			});
 		});
 	});
-
-	/*
-		describe('out', function () {
-			describe('active', function () {
-				tmp.file(function (err, outFileName) {
-					const endpoint = kronosStep.createEndpoint('e1', {
-						target: "file:" + outFileName,
-						direction: 'out(passive)'
-					}, file);
-
-					let out = endpoint.initialize(manager);
-
-					const myStream = fs.createReadStream(inFileName);
-					out.next({
-						info: {
-							name: "aName"
-						},
-						stream: myStream
-					});
-
-					myStream.on('end', function () {
-						streamEqual(fs.createReadStream(outFileName), fs.createReadStream(inFileName), makeEqualizer(done));
-					});
-				});
-			});
-
-			describe('passive', function () {
-				it("should consume a request", function (done) {
-
-					tmp.file(function (err, outFileName) {
-						const endpoint = kronosStep.createEndpoint('e1', {
-							target: "file:" + outFileName,
-							direction: 'out(passive)'
-						}, file);
-
-						let myStream;
-						let out = endpoint.initialize(manager, function* () {
-							myStream = fs.createReadStream(inFileName);
-							yield {
-								info: {
-									name: "aName"
-								},
-								stream: myStream
-							};
-						});
-
-						myStream.on('end', function () {
-							streamEqual(fs.createReadStream(outFileName), fs.createReadStream(inFileName), makeEqualizer(done));
-						});
-					});
-				});
-			});
-		});
-		*/
 });
