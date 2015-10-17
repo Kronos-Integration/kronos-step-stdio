@@ -52,7 +52,7 @@ describe('file', function () {
 				fileName: inFileName,
 				endpoints: {
 					"inout": kronosStep.createEndpoint('test', {
-						direction: "out(active,passive)"
+						"out": true
 					})
 				}
 			});
@@ -94,7 +94,7 @@ describe('file', function () {
 					fileName: outFileName,
 					endpoints: {
 						"inout": kronosStep.createEndpoint('test', {
-							direction: "in"
+							"in": true
 						})
 					}
 				});
