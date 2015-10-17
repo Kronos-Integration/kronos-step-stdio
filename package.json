@@ -1,7 +1,7 @@
 {
   "name": "kronos-step-stdio",
   "description": "stdio steps",
-  "main": "lib/manager.js",
+  "main": "index.js",
   "homepage": "http://kronosjs.com/",
   "scripts": {
     "cover": "node --harmony ./node_modules/istanbul-harmony/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports test",
@@ -30,11 +30,11 @@
     "tmp": "0.0.27"
   },
   "dependencies": {
-    "kronos-step": "https://github.com/Kronos-Integration/kronor-step.git",
+    "kronos-step": "https://github.com/Kronos-Integration/kronos-step.git",
     "uti": "^1.9.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kronos-Integration/kronor-step-stdio.git"
+    "url": "https://github.com/Kronos-Integration/kronos-step-stdio.git"
   }
 }
