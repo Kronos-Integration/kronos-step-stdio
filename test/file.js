@@ -21,9 +21,9 @@ const inFileName = path.join(__dirname, 'fixtures', 'file1.txt');
 const sr = scopeReporter.createReporter(kronosStep.ScopeDefinitions);
 
 const manager = Object.create(new events.EventEmitter(), {
-	stepImplementations: {
+	steps: {
 		value: {
-			"kronos-file": kronosStep.prepareStepForRegistration(require('../lib/steps/file'))
+			"kronos-file": require('../lib/steps/file')
 		}
 	},
 	uti: {
@@ -52,13 +52,13 @@ describe('file', function () {
 				fileName: inFileName,
 				endpoints: {
 					"inout": kronosStep.createEndpoint('test', {
-						direction: "out"
+						direction: "out(active,passive)"
 					})
 				}
 			});
 
 			const testEndpoint = kronosStep.createEndpoint('test', {
-				direction: "in"
+				direction: "in(active,passive)"
 			});
 
 			describe('start', function () {
@@ -70,7 +70,7 @@ describe('file', function () {
 							request = yield;
 						};
 					});
-					fileStep.endpoints.inout.setTarget(testEndpoint);
+					fileStep.endpoints.inout.connect(testEndpoint);
 
 					fileStep.start().then(function (step) {
 						try {
@@ -99,10 +99,10 @@ describe('file', function () {
 					}
 				});
 				const testEndpoint = kronosStep.createEndpoint('test', {
-					direction: "out"
+					direction: "out(active,passive)"
 				});
 
-				testEndpoint.setTarget(fileStep.endpoints.inout);
+				testEndpoint.connect(fileStep.endpoints.inout);
 
 				describe('start', function () {
 					it(`should create a file ${outFileName}`, function () {

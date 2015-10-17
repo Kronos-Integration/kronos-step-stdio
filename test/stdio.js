@@ -17,9 +17,9 @@ const kronosStep = require('kronos-step');
 const sr = scopeReporter.createReporter(kronosStep.ScopeDefinitions);
 
 const manager = Object.create(new events.EventEmitter(), {
-  stepImplementations: {
+  steps: {
     value: {
-      "kronos-stdin": kronosStep.prepareStepForRegistration(require('../lib/steps/stdin'))
+      "kronos-stdin": require('../lib/steps/stdin')
     }
   }
 });
@@ -34,18 +34,18 @@ describe('stdin', function () {
   });
 
   const testEndpoint = kronosStep.createEndpoint('test', {
-    direction: "in"
+    direction: "in(active,passive)"
   });
 
   testEndpoint.receive(function* () {
     console.log(`receive...`);
     while (true) {
       const request = yield;
-      console.log(`got request`);
+      //console.log(`got request`);
     };
   });
 
-  stdin.endpoints.out.setTarget(testEndpoint);
+  stdin.endpoints.out.connect(testEndpoint);
 
   describe('start', function () {
     it("should produce a request", function (done) {
