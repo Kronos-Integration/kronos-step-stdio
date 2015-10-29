@@ -51,14 +51,16 @@ describe('file', function () {
 				type: "kronos-file",
 				fileName: inFileName,
 				endpoints: {
-					"inout": kronosStep.createEndpoint('test', {
-						"out": true
+					"inout": kronosStep.createEndpoint('inout', {
+						"out": true,
+						"active": true
 					})
 				}
 			});
 
 			const testEndpoint = kronosStep.createEndpoint('test', {
-				direction: "in(active,passive)"
+				"in": true,
+				"passive": true
 			});
 
 			describe('start', function () {
@@ -94,12 +96,14 @@ describe('file', function () {
 					fileName: outFileName,
 					endpoints: {
 						"inout": kronosStep.createEndpoint('test', {
-							"in": true
+							"in": true,
+							"passive": true
 						})
 					}
 				});
 				const testEndpoint = kronosStep.createEndpoint('test', {
-					direction: "out(active,passive)"
+					"out": true,
+					"active": true
 				});
 
 				testEndpoint.connect(fileStep.endpoints.inout);

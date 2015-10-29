@@ -29,12 +29,16 @@ describe('stdin', function () {
     name: "myStep",
     type: "kronos-stdin",
     endpoints: {
-      "out": kronosStep.createEndpoint('test', {})
+      "out": kronosStep.createEndpoint('out', {
+        "out": true,
+        "active": true
+      })
     }
   });
 
   const testEndpoint = kronosStep.createEndpoint('test', {
-    direction: "in(active,passive)"
+    "in": true,
+    "passive": true
   });
 
   testEndpoint.receive(function* () {
