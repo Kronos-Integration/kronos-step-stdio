@@ -28,7 +28,7 @@
     "scope-reporter": "^2.1.0",
     "stream-equal": "^0.1.5",
     "tmp": "0.0.27",
-    "kronos-test-step": "1.0.0"
+    "kronos-test-step": "1.1.0"
   },
   "dependencies": {
     "kronos-step": "https://github.com/Kronos-Integration/kronos-step.git",
