@@ -5,38 +5,31 @@
 
 const fs = require('fs'),
   path = require('path'),
-  events = require('events'),
-  scopeReporter = require('scope-reporter'),
   chai = require('chai'),
   assert = chai.assert,
   expect = chai.expect,
-  should = chai.should();
+  should = chai.should(),
+  testStep = require('kronos-test-step'),
+  BaseStep = require('kronos-step'),
+  stdinStep = require('../lib/steps/stdin');
 
-const kronosStep = require('kronos-step');
+const manager = testStep.managerMock;
 
-const sr = scopeReporter.createReporter(kronosStep.ScopeDefinitions);
-
-const manager = Object.create(new events.EventEmitter(), {
-  steps: {
-    value: {
-      "kronos-stdin": require('../lib/steps/stdin')
-    }
-  }
-});
+require('../index').registerWithManager(manager);
 
 describe('stdin', function () {
-  const stdin = kronosStep.createStep(manager, sr, {
+  const stdin = stdinStep.createInstance(manager, undefined, {
     name: "myStep",
     type: "kronos-stdin",
     endpoints: {
-      "out": kronosStep.createEndpoint('out', {
+      "out": {
         "out": true,
         "active": true
-      })
+      }
     }
   });
 
-  const testEndpoint = kronosStep.createEndpoint('test', {
+  const testEndpoint = BaseStep.createEndpoint('test', {
     "in": true,
     "passive": true
   });
