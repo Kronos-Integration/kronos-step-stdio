@@ -17,10 +17,10 @@ const fs = require('fs'),
 	file = require('../lib/steps/file');
 
 const inFileName = path.join(__dirname, 'fixtures', 'file1.txt');
-const manager = testStep.managerMock;
 
 uti.initialize();
 
+const manager = testStep.managerMock;
 require('../index').registerWithManager(manager);
 
 function makeEqualizer(done) {
@@ -62,16 +62,17 @@ describe('file', function () {
 					fileStep.endpoints.inout.connect(testEndpoint);
 
 					fileStep.start().then(function (step) {
+						conseole.log(`start A2`);
 						try {
 							assert.equal(fileStep.state, 'running');
 							setTimeout(function () {
 								assert.equal(request.info.name, inFileName);
 								streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
-							}, 100);
+							}, 1000);
 						} catch (e) {
 							done(e);
 						}
-					}, done);
+					}, function() {done(`start failed`); });
 				});
 			});
 		});
