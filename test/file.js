@@ -32,7 +32,7 @@ function makeEqualizer(done) {
 
 describe('file', function () {
 	describe('in', function () {
-		describe('single file', function () {
+		describe('single', function () {
 			const fileStep = file.createInstance(manager, undefined, {
 				name: "myStep",
 				type: "kronos-file",
@@ -62,17 +62,18 @@ describe('file', function () {
 					fileStep.endpoints.inout.connect(testEndpoint);
 
 					fileStep.start().then(function (step) {
-						conseole.log(`start A2`);
 						try {
 							assert.equal(fileStep.state, 'running');
 							setTimeout(function () {
 								assert.equal(request.info.name, inFileName);
 								streamEqual(request.stream, fs.createReadStream(inFileName), makeEqualizer(done));
-							}, 1000);
+							}, 50);
 						} catch (e) {
 							done(e);
 						}
-					}, function() {done(`start failed`); });
+					}, function () {
+						done(`start failed`);
+					});
 				});
 			});
 		});
@@ -115,7 +116,7 @@ describe('file', function () {
 							myStream.on('end', function () {
 								setTimeout(() =>
 									streamEqual(fs.createReadStream(outFileName), fs.createReadStream(inFileName), makeEqualizer(
-										done), 5000));
+										done), 200));
 							});
 						} catch (e) {
 							done(e);
