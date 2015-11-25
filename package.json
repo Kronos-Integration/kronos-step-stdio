@@ -31,7 +31,7 @@
     "jsdoc": "3.4.0",
     "kronos-test-step": "1.1.0",
     "mocha": "2.3.4",
-    "scope-reporter": "^2.1.0",
+    "scope-reporter": "^2.2.0",
     "stream-equal": "0.1.7",
     "tmp": "0.0.28",
     "semantic-release": "6.0.3"
