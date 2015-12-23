@@ -44,6 +44,17 @@ describe('stdin', function () {
 
   stdin.endpoints.out.connect(testEndpoint);
 
+
+  describe('static', function () {
+    testStep.checkStepStatic(manager, stdin);
+  });
+
+  describe('live-cycle', function () {
+    testStep.checkStepLivecycle(manager, stdin, function (step, state, livecycle, done) {
+      done();
+    });
+  });
+
   describe('start', function () {
     it("should produce a request", function (done) {
       stdin.start().then(function (step) {
