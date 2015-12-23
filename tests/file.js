@@ -51,14 +51,26 @@ describe('file', function () {
 				"passive": true
 			});
 
+			let request;
+			testEndpoint.receive(function* () {
+				while (true) {
+					request = yield;
+				};
+			});
+			fileStep.endpoints.inout.connect(testEndpoint);
+
+			describe('static', function () {
+				testStep.checkStepStatic(manager, fileStep);
+			});
+
+			describe('live-cycle', function () {
+				testStep.checkStepLivecycle(manager, fileStep, function (step, state, livecycle, done) {
+					done();
+				});
+			});
+
 			describe('start', function () {
 				it("should produce a request", function (done) {
-					let request;
-					testEndpoint.receive(function* () {
-						while (true) {
-							request = yield;
-						};
-					});
 					fileStep.endpoints.inout.connect(testEndpoint);
 
 					fileStep.start().then(function (step) {
@@ -98,6 +110,19 @@ describe('file', function () {
 			});
 
 			testEndpoint.connect(fileStep.endpoints.inout);
+
+
+			describe('static', function () {
+				testStep.checkStepStatic(manager, fileStep);
+			});
+
+			/* TODO why we get  Error: test:out:active: There was no 'inPassiveGenerator' set, so it could not return any
+						describe('live-cycle', function () {
+							testStep.checkStepLivecycle(manager, fileStep, function (step, state, livecycle, done) {
+								done();
+							});
+						});
+			*/
 
 			describe('start', function () {
 				it(`should create a file ${outFileName}`, function () {
