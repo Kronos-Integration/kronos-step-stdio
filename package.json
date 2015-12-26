@@ -1,7 +1,7 @@
 {
   "name": "kronos-step-stdio",
   "description": "stdio steps",
-  "tags": "kronos-step",
+  "keywords": ["kronos-step"],
   "main": "index.js",
   "homepage": "http://kronosjs.com/",
   "scripts": {
@@ -34,7 +34,7 @@
     "tmp": "0.0.28"
   },
   "dependencies": {
-    "kronos-step": "2.10.0",
+    "kronos-step": "^2.10.0",
     "uti": "1.10.0"
   },
   "repository": {
