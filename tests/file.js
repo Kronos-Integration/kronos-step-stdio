@@ -128,7 +128,7 @@ describe('file', function () {
 				it(`should create a file ${outFileName}`, function () {
 					fileStep.start().then(function (step) {
 						try {
-							const myStream = fs.createReadStream(inFileName)
+							const myStream = fs.createReadStream(inFileName);
 							testEndpoint.send({
 								info: {
 									name: inFileName
