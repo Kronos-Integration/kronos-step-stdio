@@ -55,7 +55,7 @@ describe('file', function () {
 			testEndpoint.receive(function* () {
 				while (true) {
 					request = yield;
-				};
+				}
 			});
 			fileStep.endpoints.inout.connect(testEndpoint);
 
