@@ -7,7 +7,7 @@
   "main": "index.js",
   "homepage": "http://kronosjs.com/",
   "scripts": {
-    "cover": "node --harmony ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
+    "cover": "node ./node_modules/istanbul/lib/cli.js cover --hook-run-in-context ./node_modules/mocha/bin/_mocha -- --R spec --U exports tests",
     "doc": "./node_modules/.bin/jsdoc lib/*.js",
     "test": "mocha --harmony_shipping tests/*.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
