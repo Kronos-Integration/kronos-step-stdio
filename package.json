@@ -39,7 +39,7 @@
     "tmp": "0.0.28"
   },
   "dependencies": {
-    "kronos-step": "^2.11.0",
+    "kronos-step": "^2.12.0",
     "uti": "1.10.0"
   },
   "repository": {
