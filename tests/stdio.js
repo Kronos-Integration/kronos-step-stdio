@@ -20,14 +20,10 @@ require('../index').registerWithManager(manager);
 describe('stdin', function () {
   const stdin = stdinStep.createInstance(manager, undefined, {
     name: "myStep",
-    type: "kronos-stdin",
-    endpoints: {
-      "out": {
-        "out": true,
-        "active": true
-      }
-    }
+    type: "kronos-stdin"
   });
+
+  console.log(`${stdin.endpoints.out.receive}`);
 
   const testEndpoint = BaseStep.createEndpoint('test', {
     "in": true,

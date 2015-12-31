@@ -15,16 +15,13 @@
   "engines": {
     "node": ">=4.2.1"
   },
-  "contributors": [
-    {
-      "name": "Torsten Link",
-      "email": "torstenlink@gmx.de"
-    },
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
+  "contributors": [{
+    "name": "Torsten Link",
+    "email": "torstenlink@gmx.de"
+  }, {
+    "name": "Markus Felten",
+    "email": "markus.felten@gmx.de"
+  }],
   "license": "BSD-2-Clause",
   "devDependencies": {
     "chai": "3.4.1",
@@ -35,8 +32,7 @@
     "kronos-test-step": "2.8.0",
     "mocha": "2.3.4",
     "semantic-release": "6.0.3",
-    "stream-equal": "0.1.7",
-    "tmp": "0.0.28"
+    "stream-equal": "0.1.7"
   },
   "dependencies": {
     "kronos-step": "^2.12.1"
