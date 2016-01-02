@@ -10,7 +10,7 @@ const fs = require('fs'),
   expect = chai.expect,
   should = chai.should(),
   testStep = require('kronos-test-step'),
-  BaseStep = require('kronos-step'),
+  endpoint = require('kronos-step').endpoint,
   stdinStep = require('../lib/steps/stdin');
 
 const manager = testStep.managerMock;
@@ -23,23 +23,13 @@ describe('stdin', function () {
     type: "kronos-stdin"
   });
 
-  console.log(`${stdin.endpoints.out.receive}`);
+  const testEndpoint = new endpoint.ReceiveEndpoint('test');
 
-  const testEndpoint = BaseStep.createEndpoint('test', {
-    "in": true,
-    "passive": true
-  });
-
-  testEndpoint.receive(function* () {
+  testEndpoint.receive = request => {
     console.log(`receive...`);
-    while (true) {
-      const request = yield;
-      //console.log(`got request`);
-    };
-  });
+  };
 
-  stdin.endpoints.out.connect(testEndpoint);
-
+  stdin.endpoints.out.connected = testEndpoint;
 
   describe('static', function () {
     testStep.checkStepStatic(manager, stdin);
@@ -52,8 +42,8 @@ describe('stdin', function () {
   });
 
   describe('start', function () {
-    it("should produce a request", function (done) {
-      stdin.start().then(function (step) {
+    it("should produce a request", done => {
+      stdin.start().then(step => {
         try {
           //console.log(`STEP ${JSON.stringify(step)}`);
           assert.equal(step.state, 'running');
