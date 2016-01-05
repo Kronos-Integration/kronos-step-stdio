@@ -48,47 +48,77 @@ describe('stdin', function () {
           //console.log(`STEP ${JSON.stringify(step)}`);
           assert.equal(step.state, 'running');
 
-          setTimeout(() => done(), 50);
+          setTimeout(() => done(), 30);
         } catch (e) {
           done(e);
         }
       }, done);
     });
   });
+});
 
-  /*
-  describe('stdout endpoint', function () {
-    const endpoint = kronosStep.createEndpoint('e1', {
-      target: "stdout"
-    }, kronosStep.createEndpoint('stout',require('../lib/endpoints/stdio').stdout));
+describe('stdout', function () {
+  const stdout = stdinStep.createInstance(manager, undefined, {
+    name: "myStep",
+    type: "kronos-stdout"
+  });
 
-    describe('with generator arg', function () {
-      it("should consume a request", function () {
-        let out = endpoint.initialize(manager, function* () {
-          const fileName = path.join(__dirname, 'fixtures', 'file1.txt');
-          yield {
-            info: {
-              name: "aName"
-            },
-            stream: fs.createReadStream(fileName)
-          };
-        });
-      });
-    });
+  const testEndpoint = new endpoint.SendEndpoint('test', {get name() {
+      return "Test"
+    },
+    toString() {
+      return this.name;
+    }
+  });
 
-    describe('without generator arg', function () {
-      let out = endpoint.initialize(manager);
+  testEndpoint.connected = stdout.endpoints.in;
 
-      it("should consume a request", function () {
+  describe('static', function () {
+    testStep.checkStepStatic(manager, stdout);
+  });
+
+  describe('live-cycle', function () {
+    testStep.checkStepLivecycle(manager, stdout, function (step, state, livecycle, done) {
+      /*if (state === 'running') {
         const fileName = path.join(__dirname, 'fixtures', 'file1.txt');
-
-        out.next({
-          info: {
-            name: "aName"
-          },
+        testEndpoint.send({
           stream: fs.createReadStream(fileName)
         });
-      });
+      }*/
+      done();
     });
-    */
+  });
+});
+
+describe('stderr', function () {
+  const stderr = stdinStep.createInstance(manager, undefined, {
+    name: "myStep",
+    type: "kronos-stderr"
+  });
+
+  const testEndpoint = new endpoint.SendEndpoint('test', {get name() {
+      return "Test"
+    },
+    toString() {
+      return this.name;
+    }
+  });
+
+  testEndpoint.connected = stderr.endpoints.in;
+
+  describe('static', function () {
+    testStep.checkStepStatic(manager, stderr);
+  });
+
+  describe('live-cycle', function () {
+    testStep.checkStepLivecycle(manager, stderr, function (step, state, livecycle, done) {
+      /*    if (state === 'running') {
+            const fileName = path.join(__dirname, 'fixtures', 'file1.txt');
+            testEndpoint.send({
+              stream: fs.createReadStream(fileName)
+            });
+          }*/
+      done();
+    });
+  });
 });
