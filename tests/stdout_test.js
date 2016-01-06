@@ -38,7 +38,7 @@ describe('stderr', function () {
 
 function test(name, step) {
   const testEndpoint = new endpoint.SendEndpoint('test', {get name() {
-      return "Test"
+      return "Test";
     },
     toString() {
       return this.name;
