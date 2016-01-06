@@ -4,7 +4,7 @@
 "use strict";
 
 exports.registerWithManager = function (manager) {
-  manager.registerStep(require('./lib/steps/stdin'));
-  manager.registerStep(require('./lib/steps/stdout'));
-  manager.registerStep(require('./lib/steps/stderr'));
+  manager.registerStep(require('./lib/stdin'));
+  manager.registerStep(require('./lib/stdout'));
+  manager.registerStep(require('./lib/stderr'));
 };
