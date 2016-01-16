@@ -2,7 +2,6 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/Kronos-Integration/kronos-step-stdio)
 [![Build Status](https://secure.travis-ci.org/Kronos-Integration/kronos-step-stdio.png)](http://travis-ci.org/Kronos-Integration/kronos-step-stdio)
 [![bithound](https://www.bithound.io/github/Kronos-Integration/kronos-step-stdio/badges/score.svg)](https://www.bithound.io/github/Kronos-Integration/kronos-step-stdio)
-[![Coverage Status](https://coveralls.io/repos/Kronos-Integration/kronos-step-stdio/badge.svg)](https://coveralls.io/r/Kronos-Integration/kronos-step-stdio)
 [![Code Climate](https://codeclimate.com/github/Kronos-Integration/kronos-step-stdio/badges/gpa.svg)](https://codeclimate.com/github/Kronos-Integration/kronos-step-stdio)
 [![GitHub Issues](https://img.shields.io/github/issues/Kronos-Integration/kronos-step-stdio.svg?style=flat-square)](https://github.com/Kronos-Integration/kronos-step-stdio/issues)
 [![Dependency Status](https://david-dm.org/Kronos-Integration/kronos-step-stdio.svg)](https://david-dm.org/Kronos-Integration/kronos-step-stdio)
