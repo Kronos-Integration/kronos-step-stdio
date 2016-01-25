@@ -29,12 +29,11 @@
   "devDependencies": {
     "chai": "3.4.1",
     "chai-as-promised": "5.2.0",
-    "coveralls": "2.11.6",
     "istanbul": "0.4.2",
     "jsdoc": "3.4.0",
     "kronos-test-step": "^2.10.0",
     "mocha": "2.3.4",
-    "semantic-release": "6.0.3",
+    "semantic-release": "6.2.0",
     "stream-equal": "0.1.7"
   },
   "dependencies": {
