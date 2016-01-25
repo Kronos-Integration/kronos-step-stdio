@@ -18,7 +18,7 @@ const manager = testStep.managerMock;
 
 require('../index').registerWithManager(manager);
 
-describe('stdout', function () {
+describe('stdout', () => {
   const step = stdoutStep.createInstance(manager, undefined, {
     name: "myStep",
     type: "kronos-stdout"
@@ -27,7 +27,7 @@ describe('stdout', function () {
   test("stdout", step);
 });
 
-describe('stderr', function () {
+describe('stderr', () => {
   const step = stderrStep.createInstance(manager, undefined, {
     name: "myStep",
     type: "kronos-stderr"
@@ -47,13 +47,13 @@ function test(name, step) {
 
   testEndpoint.connected = step.endpoints.in;
 
-  describe('static', function () {
-    testStep.checkStepStatic(manager, step);
-  });
+  describe('static', () =>
+    testStep.checkStepStatic(manager, step)
+  );
 
-  describe('live-cycle', function () {
-    testStep.checkStepLivecycle(manager, step, function (step, state, livecycle, done) {
-      done();
-    });
-  });
+  describe('live-cycle', () =>
+    testStep.checkStepLivecycle(manager, step, (step, state, livecycle, done) =>
+      done()
+    )
+  );
 }

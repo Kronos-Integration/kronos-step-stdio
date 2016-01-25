@@ -17,7 +17,7 @@ const manager = testStep.managerMock;
 
 require('../index').registerWithManager(manager);
 
-describe('stdin', function () {
+describe('stdin', () => {
   const stdin = stdinStep.createInstance(manager, undefined, {
     name: "myStep",
     type: "kronos-stdin"
@@ -32,17 +32,17 @@ describe('stdin', function () {
 
   stdin.endpoints.out.connected = testEndpoint;
 
-  describe('static', function () {
-    testStep.checkStepStatic(manager, stdin);
-  });
+  describe('static', () =>
+    testStep.checkStepStatic(manager, stdin)
+  );
 
-  describe('live-cycle', function () {
-    testStep.checkStepLivecycle(manager, stdin, function (step, state, livecycle, done) {
-      done();
-    });
-  });
+  describe('live-cycle', () =>
+    testStep.checkStepLivecycle(manager, stdin, (step, state, livecycle, done) =>
+      done()
+    )
+  );
 
-  describe('start', function () {
+  describe('start', () => {
     it("should produce a request", done => {
       stdin.start().then(step => {
         try {
