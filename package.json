@@ -15,13 +15,16 @@
   "engines": {
     "node": ">=4.2.1"
   },
-  "contributors": [{
-    "name": "Torsten Link",
-    "email": "torstenlink@gmx.de"
-  }, {
-    "name": "Markus Felten",
-    "email": "markus.felten@gmx.de"
-  }],
+  "contributors": [
+    {
+      "name": "Torsten Link",
+      "email": "torstenlink@gmx.de"
+    },
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
   "license": "BSD-2-Clause",
   "devDependencies": {
     "chai": "3.4.1",
@@ -29,7 +32,7 @@
     "coveralls": "2.11.6",
     "istanbul": "0.4.2",
     "jsdoc": "3.4.0",
-    "kronos-test-step": "2.9.1",
+    "kronos-test-step": "^2.10.0",
     "mocha": "2.3.4",
     "semantic-release": "6.0.3",
     "stream-equal": "0.1.7"
