@@ -32,7 +32,7 @@
     "istanbul": "0.4.2",
     "jsdoc": "3.4.0",
     "kronos-test-step": "^2.10.0",
-    "mocha": "2.4.4",
+    "mocha": "2.4.5",
     "semantic-release": "6.2.0",
     "stream-equal": "0.1.7"
   },
