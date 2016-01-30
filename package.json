@@ -34,7 +34,7 @@
     "kronos-test-step": "^2.10.0",
     "mocha": "2.4.5",
     "semantic-release": "6.2.0",
-    "stream-equal": "0.1.7"
+    "stream-equal": "0.1.8"
   },
   "dependencies": {
     "kronos-step": "^3.9.0"
