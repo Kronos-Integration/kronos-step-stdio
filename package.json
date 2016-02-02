@@ -37,7 +37,7 @@
     "stream-equal": "0.1.8"
   },
   "dependencies": {
-    "kronos-step": "^3.9.0"
+    "kronos-step": "^4.0.0"
   },
   "repository": {
     "type": "git",
