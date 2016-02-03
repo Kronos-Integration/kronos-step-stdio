@@ -10,28 +10,36 @@ const fs = require('fs'),
   expect = chai.expect,
   should = chai.should(),
   testStep = require('kronos-test-step'),
+  ksm = require('kronos-service-manager'),
   endpoint = require('kronos-step').endpoint,
   stdinStep = require('../lib/stdin');
 
-const manager = testStep.managerMock;
 
-require('../index').registerWithManager(manager);
+let manager;
+let stdin;
 
-describe('stdin', () => {
-  const stdin = stdinStep.createInstance(manager, undefined, {
-    name: "myStep",
-    type: "kronos-stdin"
+before(done => {
+  ksm.manager({}, [require('../index')]).then(m => {
+    stdin = stdinStep.createInstance({
+      name: "myStep",
+      type: "kronos-stdin"
+    }, m);
+
+    const testEndpoint = new endpoint.ReceiveEndpoint('test');
+
+    testEndpoint.receive = request => {
+      //console.log(`receive...`);
+      return Promise.resolve();
+    };
+
+    stdin.endpoints.out.connected = testEndpoint;
+
+    manager = m;
+    done();
   });
+});
 
-  const testEndpoint = new endpoint.ReceiveEndpoint('test');
-
-  testEndpoint.receive = request => {
-    //console.log(`receive...`);
-    return Promise.resolve();
-  };
-
-  stdin.endpoints.out.connected = testEndpoint;
-
+it('stdin', () => {
   describe('static', () =>
     testStep.checkStepStatic(manager, stdin)
   );
@@ -47,8 +55,7 @@ describe('stdin', () => {
       stdin.start().then(step => {
         try {
           assert.equal(step.state, 'running');
-
-          setTimeout(() => done(), 30);
+          setTimeout(done, 30);
         } catch (e) {
           done(e);
         }

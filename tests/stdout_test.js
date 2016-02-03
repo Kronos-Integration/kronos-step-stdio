@@ -10,30 +10,34 @@ const fs = require('fs'),
   expect = chai.expect,
   should = chai.should(),
   testStep = require('kronos-test-step'),
+  ksm = require('kronos-service-manager'),
   endpoint = require('kronos-step').endpoint,
   stdoutStep = require('../lib/stdout'),
   stderrStep = require('../lib/stderr');
 
-const manager = testStep.managerMock;
 
-require('../index').registerWithManager(manager);
+let manager;
 
-describe('stdout', () => {
-  const step = stdoutStep.createInstance(manager, undefined, {
-    name: "myStep",
-    type: "kronos-stdout"
+before(done => {
+  ksm.manager({}, [require('../index')]).then(m => {
+    manager = m;
+    done();
   });
-
-  test("stdout", step);
 });
 
-describe('stderr', () => {
-  const step = stderrStep.createInstance(manager, undefined, {
+
+it('stdout', () => {
+  test("stdout", stdoutStep.createInstance({
+    name: "myStep",
+    type: "kronos-stdout"
+  }, manager));
+});
+
+it('stderr', () => {
+  test("stderr", stderrStep.createInstance({
     name: "myStep",
     type: "kronos-stderr"
-  });
-
-  test("stderr", step);
+  }, manager));
 });
 
 function test(name, step) {
