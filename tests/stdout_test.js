@@ -11,7 +11,7 @@ const fs = require('fs'),
   should = chai.should(),
   testStep = require('kronos-test-step'),
   ksm = require('kronos-service-manager'),
-  endpoint = require('kronos-step').endpoint,
+  endpoint = require('kronos-endpoint'),
   stdoutStep = require('../lib/stdout'),
   stderrStep = require('../lib/stderr');
 
