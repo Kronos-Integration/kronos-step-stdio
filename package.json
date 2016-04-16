@@ -1,6 +1,6 @@
 {
   "name": "kronos-step-stdio",
-  "description": "steps to access stdin stdout end stderr",
+  "description": "steps to access stdin stdout and stderr",
   "keywords": [
     "kronos-step"
   ],
