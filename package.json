@@ -28,14 +28,12 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "chai": "3.5.0",
-    "chai-as-promised": "5.3.0",
     "istanbul": "0.4.3",
     "jsdoc": "3.4.0",
     "kronos-service-manager": "3.2.19",
     "kronos-test-step": "3.1.0",
     "mocha": "2.4.5",
-    "semantic-release": "6.2.1",
-    "stream-equal": "0.1.8"
+    "semantic-release": "6.2.1"
   },
   "dependencies": {
     "kronos-step": "5.1.4"
