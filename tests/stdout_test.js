@@ -1,7 +1,7 @@
 /* global describe, it, before */
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const fs = require('fs'),
   path = require('path'),
@@ -27,22 +27,22 @@ before(done => {
 
 
 it('stdout', () => {
-  test("stdout", stdoutStep.createInstance({
-    name: "myStep",
-    type: "kronos-stdout"
+  test('stdout', stdoutStep.createInstance({
+    name: 'myStep',
+    type: 'kronos-stdout'
   }, manager));
 });
 
 it('stderr', () => {
-  test("stderr", stderrStep.createInstance({
-    name: "myStep",
-    type: "kronos-stderr"
+  test('stderr', stderrStep.createInstance({
+    name: 'myStep',
+    type: 'kronos-stderr'
   }, manager));
 });
 
 function test(name, step) {
   const testEndpoint = new endpoint.SendEndpoint('test', {get name() {
-      return "Test";
+      return 'Test';
     },
     toString() {
       return this.name;

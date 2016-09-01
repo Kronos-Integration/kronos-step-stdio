@@ -1,7 +1,7 @@
 /* global describe, it, before */
 /* jslint node: true, esnext: true */
 
-"use strict";
+'use strict';
 
 const fs = require('fs'),
   path = require('path'),
@@ -21,8 +21,8 @@ let stdin;
 before(done => {
   ksm.manager({}, [require('../index')]).then(m => {
     stdin = stdinStep.createInstance({
-      name: "myStep",
-      type: "kronos-stdin"
+      name: 'myStep',
+      type: 'kronos-stdin'
     }, m);
 
     const testEndpoint = new endpoint.ReceiveEndpoint('test');
@@ -51,7 +51,7 @@ it('stdin', () => {
   );
 
   describe('start', () => {
-    it("should produce a request", done => {
+    it('should produce a request', done => {
       stdin.start().then(step => {
         try {
           assert.equal(step.state, 'running');
