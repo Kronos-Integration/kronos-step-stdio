@@ -13,7 +13,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "engines": {
-    "node": ">=6.9.1"
+    "node": ">=8.4.0"
   },
   "contributors": [
     {
@@ -27,14 +27,14 @@
   ],
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "chai": "4.1.2",
+    "chai": "^4.1.2",
     "cz-conventional-changelog": "2.0.0",
     "istanbul": "0.4.5",
     "jsdoc": "^3.4.3",
     "kronos-service-manager": "^3.5.1",
     "kronos-test-step": "3.1.4",
-    "mocha": "3.5.2",
-    "semantic-release": "^7.0.1"
+    "mocha": "^3.5.2",
+    "semantic-release": "^8.0.0"
   },
   "dependencies": {
     "kronos-endpoint": "^2.14.5",
@@ -42,15 +42,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kronos-Integration/kronos-step-stdio.git"
+    "url": "git+https://github.com/Kronos-Integration/kronos-step-stdio.git"
   },
   "bugs": {
     "url": "https://github.com/Kronos-Integration/kronos-step-stdio/issues"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+  "version": "0.0.0-semantic-release",
+  "xo": {
+    "space": true
   },
-  "version": "0.0.0-semantic-release"
+  "template": {
+    "repository": {
+      "url": "https://github.com/Kronos-Tools/npm-package-template-minimal.git"
+    }
+  }
 }
