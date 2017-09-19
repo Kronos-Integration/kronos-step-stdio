@@ -1,7 +1,9 @@
 {
   "name": "kronos-step-stdio",
   "description": "steps to access stdin stdout and stderr",
-  "keywords": ["kronos-step"],
+  "keywords": [
+    "kronos-step"
+  ],
   "main": "index.js",
   "homepage": "https://github.com/Kronos-Integration/kronos-step-stdio#readme",
   "scripts": {
