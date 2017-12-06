@@ -13,7 +13,7 @@
     "semantic-release": "semantic-release"
   },
   "engines": {
-    "node": ">=8.9.1"
+    "node": ">=8.9.2"
   },
   "contributors": [
     {
