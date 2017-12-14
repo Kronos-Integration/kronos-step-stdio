@@ -1,10 +1,9 @@
 {
   "name": "kronos-step-stdio",
   "description": "steps to access stdin stdout and stderr",
-  "keywords": [
-    "kronos-step"
-  ],
-  "main": "index.js",
+  "keywords": ["kronos-step"],
+  "main": "dist/module.js",
+  "module": "src/module.js",
   "homepage": "https://github.com/Kronos-Integration/kronos-step-stdio#readme",
   "scripts": {
     "cover": "nyc --temp-directory build/nyc ava",
@@ -15,7 +14,8 @@
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
     "prepare": "rollup -c",
-    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md"
+    "docs":
+      "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md"
   },
   "engines": {
     "node": ">=8.9.3"
@@ -32,8 +32,6 @@
   ],
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "kronos-service-manager": "^3.5.1",
-    "kronos-test-step": "3.1.4",
     "semantic-release": "^11.0.2",
     "jsdoc-to-markdown": "^3.0.2",
     "jsdoc-babel": "^0.3.0",
@@ -67,23 +65,13 @@
     }
   },
   "ava": {
-    "files": [
-      "build/*-test.js"
-    ],
-    "presets": [
-      "env"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/*-test.js"],
+    "presets": ["env"],
+    "require": ["babel-register"]
   },
   "nyc": {
-    "include": [
-      "build/*-test.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/*-test.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   }
 }

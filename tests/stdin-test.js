@@ -1,36 +1,22 @@
-/* global describe, it, before */
-/* jslint node: true, esnext: true */
+import test from 'ava';
+import { ReceiveEndpoint } from 'kronos-endpoint';
+import {} from 'kronos-test-step';
 
-'use strict';
-
-const fs = require('fs'),
-  path = require('path'),
-  chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should(),
-  testStep = require('kronos-test-step'),
-  ksm = require('kronos-service-manager'),
-  endpoint = require('kronos-endpoint'),
-  stdinStep = require('../lib/stdin');
-
-
-let manager;
-let stdin;
+import StdinStep from '../src/stdin';
 
 before(done => {
   ksm.manager({}, [require('../index')]).then(m => {
-    stdin = stdinStep.createInstance({
-      name: 'myStep',
-      type: 'kronos-stdin'
-    }, m);
+    stdin = stdinStep.createInstance(
+      {
+        name: 'myStep',
+        type: 'kronos-stdin'
+      },
+      m
+    );
 
-    const testEndpoint = new endpoint.ReceiveEndpoint('test');
+    const testEndpoint = new ReceiveEndpoint('test');
 
-    testEndpoint.receive = request => {
-      //console.log(`receive...`);
-      return Promise.resolve();
-    };
+    testEndpoint.receive = async request => {};
 
     stdin.endpoints.out.connected = testEndpoint;
 
@@ -40,15 +26,14 @@ before(done => {
 });
 
 it('stdin', () => {
-  describe('static', () =>
-    testStep.checkStepStatic(manager, stdin)
-  );
+  describe('static', () => testStep.checkStepStatic(manager, stdin));
 
   describe('live-cycle', () =>
-    testStep.checkStepLivecycle(manager, stdin, (step, state, livecycle, done) =>
-      done()
-    )
-  );
+    testStep.checkStepLivecycle(
+      manager,
+      stdin,
+      (step, state, livecycle, done) => done()
+    ));
 
   describe('start', () => {
     it('should produce a request', done => {

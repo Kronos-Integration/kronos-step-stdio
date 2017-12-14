@@ -1,47 +1,39 @@
-/* global describe, it, before */
-/* jslint node: true, esnext: true */
+import test from 'ava';
+import { ReceiveEndpoint } from 'kronos-endpoint';
 
-'use strict';
-
-const fs = require('fs'),
-  path = require('path'),
-  chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should(),
-  testStep = require('kronos-test-step'),
-  ksm = require('kronos-service-manager'),
-  endpoint = require('kronos-endpoint'),
-  stdoutStep = require('../lib/stdout'),
-  stderrStep = require('../lib/stderr');
-
-
-let manager;
-
-before(done => {
-  ksm.manager({}, [require('../index')]).then(m => {
-    manager = m;
-    done();
-  });
-});
-
+(testStep = require('kronos-test-step')),
+  (stdoutStep = require('../lib/stdout')),
+  (stderrStep = require('../lib/stderr'));
 
 it('stdout', () => {
-  test('stdout', stdoutStep.createInstance({
-    name: 'myStep',
-    type: 'kronos-stdout'
-  }, manager));
+  test(
+    'stdout',
+    stdoutStep.createInstance(
+      {
+        name: 'myStep',
+        type: 'kronos-stdout'
+      },
+      manager
+    )
+  );
 });
 
 it('stderr', () => {
-  test('stderr', stderrStep.createInstance({
-    name: 'myStep',
-    type: 'kronos-stderr'
-  }, manager));
+  test(
+    'stderr',
+    stderrStep.createInstance(
+      {
+        name: 'myStep',
+        type: 'kronos-stderr'
+      },
+      manager
+    )
+  );
 });
 
 function test(name, step) {
-  const testEndpoint = new endpoint.SendEndpoint('test', {get name() {
+  const testEndpoint = new endpoint.SendEndpoint('test', {
+    get name() {
       return 'Test';
     },
     toString() {
@@ -51,13 +43,10 @@ function test(name, step) {
 
   testEndpoint.connected = step.endpoints.in;
 
-  describe('static', () =>
-    testStep.checkStepStatic(manager, step)
-  );
+  describe('static', () => testStep.checkStepStatic(manager, step));
 
   describe('live-cycle', () =>
     testStep.checkStepLivecycle(manager, step, (step, state, livecycle, done) =>
       done()
-    )
-  );
+    ));
 }
