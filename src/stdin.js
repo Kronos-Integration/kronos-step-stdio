@@ -1,6 +1,12 @@
 import { Step } from 'kronos-step';
 
+/**
+ * Step with one output endpoint reading from stdin
+ */
 export default class StdintStep extends Step {
+  /**
+   * @return {string} 'kronos-stdin'
+   */
   static get name() {
     return 'kronos-stdin';
   }

@@ -1,6 +1,12 @@
 import { Step } from 'kronos-step';
 
+/**
+ * Step with one input endpoint writing to stdout
+ */
 export default class StdoutStep extends Step {
+  /**
+   * @return {string} 'kronos-stdout'
+   */
   static get name() {
     return 'kronos-stdout';
   }

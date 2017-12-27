@@ -1,6 +1,12 @@
 import { Step } from 'kronos-step';
 
+/**
+ * Step with one input endpoint writing to stderr
+ */
 export default class StderrStep extends Step {
+  /**
+   * @return {string} 'kronos-stderr'
+   */
   static get name() {
     return 'kronos-stderr';
   }
