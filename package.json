@@ -1,12 +1,23 @@
 {
   "name": "kronos-step-stdio",
+  "version": "0.0.0-semantic-release",
+  "main": "dist/module.js",
+  "module": "src/module.js",
   "description": "steps to access stdin stdout and stderr",
   "keywords": [
     "kronos-step"
   ],
-  "main": "dist/module.js",
-  "module": "src/module.js",
-  "homepage": "https://github.com/Kronos-Integration/kronos-step-stdio#readme",
+  "contributors": [
+    {
+      "name": "Torsten Link",
+      "email": "torstenlink@gmx.de"
+    },
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
+  "license": "BSD-2-Clause",
   "scripts": {
     "cover": "nyc --temp-directory build/nyc ava",
     "doc": "./node_modules/.bin/jsdoc lib/*.js",
@@ -19,20 +30,10 @@
     "docs": "documentation readme src/module.js --section=API",
     "lint": "documentation lint src/module.js"
   },
-  "engines": {
-    "node": ">=8.9.3"
+  "dependencies": {
+    "kronos-endpoint": "^2.14.14",
+    "kronos-step": "^5.6.4"
   },
-  "contributors": [
-    {
-      "name": "Torsten Link",
-      "email": "torstenlink@gmx.de"
-    },
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
-  "license": "BSD-2-Clause",
   "devDependencies": {
     "semantic-release": "^11.1.0",
     "markdown-doctest": "^0.9.1",
@@ -43,9 +44,8 @@
     "xo": "^0.19.0",
     "documentation": "^5.3.5"
   },
-  "dependencies": {
-    "kronos-endpoint": "^2.14.14",
-    "kronos-step": "^5.6.4"
+  "engines": {
+    "node": ">=8.9.3"
   },
   "repository": {
     "type": "git",
@@ -54,15 +54,7 @@
   "bugs": {
     "url": "https://github.com/Kronos-Integration/kronos-step-stdio/issues"
   },
-  "version": "0.0.0-semantic-release",
-  "xo": {
-    "space": true
-  },
-  "template": {
-    "repository": {
-      "url": "https://github.com/arlac77/npm-package-template.git"
-    }
-  },
+  "homepage": "https://github.com/Kronos-Integration/kronos-step-stdio#readme",
   "ava": {
     "files": [
       "build/*-test.js"
@@ -82,5 +74,13 @@
       "lcov"
     ],
     "report-dir": "./build/coverage"
+  },
+  "xo": {
+    "space": true
+  },
+  "template": {
+    "repository": {
+      "url": "https://github.com/arlac77/npm-package-template.git"
+    }
   }
 }
