@@ -36,7 +36,7 @@
     "kronos-step": "^5.6.6"
   },
   "devDependencies": {
-    "semantic-release": "^15.4.0",
+    "semantic-release": "^15.4.1",
     "markdown-doctest": "^0.9.1",
     "nyc": "^11.7.3",
     "ava": "^0.25.0",
